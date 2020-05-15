@@ -1,0 +1,18 @@
+ 
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+				  xmlns:urn="urn:mFlow">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:request>
+         <urn:correctionId>Spain</urn:correctionId>
+         <urn:payload>
+            <urn:first_name>Иван</urn:first_name>
+            <urn:last_name>Иванов</urn:last_name>
+            <urn:patr_name>Иванович</urn:patr_name>
+            <urn:doc_number>123456</urn:doc_number>
+            <urn:doc_series>1122</urn:doc_series>
+            <urn:doc_issue_date>15.04.2013</urn:doc_issue_date>
+        </urn:payload>
+      </urn:request>
+   </soapenv:Body>
+</soapenv:Envelope>

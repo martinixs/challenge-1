@@ -1,0 +1,73 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="urn:mFlow"
+           targetNamespace="urn:mFlow"
+           elementFormDefault="qualified">
+
+    <xs:element name="request">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="correctionId" type="xs:string"/>
+                <xs:element name="payload" type="tns:person"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="reply">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="correctionId" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="payload" type="tns:out_document"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="out_document">
+        <xs:sequence>
+            <xs:element name="document" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="person">
+        <xs:sequence>
+            <xs:element name="first_name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="last_name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="patr_name" type="xs:string"/>
+            <xs:element name="doc_number">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:pattern value="[0-9][0-9][0-9][0-9][0-9][0-9]"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="doc_series">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:pattern value="[0-9][0-9][0-9][0-9]"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="doc_issue_date">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9][0-9].[0-9][0-9].[0-9][0-9][0-9][0-9]"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
