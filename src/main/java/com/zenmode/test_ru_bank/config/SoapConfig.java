@@ -45,7 +45,7 @@ public class SoapConfig extends WsConfigurerAdapter {
     }
 
     @Bean
-    public XsdSchema countriesSchema() {
+    public XsdSchema personsSchema() {
         return new SimpleXsdSchema(new ClassPathResource(SCHEMA_NAME));
     }
 }

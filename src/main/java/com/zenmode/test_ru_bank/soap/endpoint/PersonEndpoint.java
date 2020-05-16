@@ -56,6 +56,7 @@ public class PersonEndpoint {
         reply.setStatus(status);
         reply.setDocument(outDocument);
 
+        log.debug(reply.toString());
         return reply;
     }
 }
