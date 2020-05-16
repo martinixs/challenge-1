@@ -23,8 +23,14 @@ public class SoapServiceImpl implements SoapService {
 
     private WebServiceTemplate webServiceTemplate;
 
+    public SoapServiceImpl(Jaxb2Marshaller jaxb2Marshaller) {
+        this.jaxb2Marshaller = jaxb2Marshaller;
+        this.webServiceTemplate = new WebServiceTemplate(jaxb2Marshaller);
+    }
+
+
     public Reply getPerson(Request request) {
-        webServiceTemplate = new WebServiceTemplate(jaxb2Marshaller);
+        log.debug("Invoke SOAP service");
         return (Reply) webServiceTemplate.marshalSendAndReceive("http://localhost:8080/ws", request);
     }
 

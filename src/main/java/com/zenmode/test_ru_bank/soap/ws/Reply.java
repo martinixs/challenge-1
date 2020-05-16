@@ -50,7 +50,7 @@ public class Reply {
     protected String correctionId;
     @XmlElement(required = true)
     protected String status;
-    @XmlElement(required = true)
+    @XmlElement(name = "payload", required = true)
     protected OutDocument document;
 
     /**
