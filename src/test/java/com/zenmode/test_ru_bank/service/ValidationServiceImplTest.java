@@ -1,22 +1,19 @@
 package com.zenmode.test_ru_bank.service;
 
 import com.zenmode.test_ru_bank.TestConstants;
+import com.zenmode.test_ru_bank.TestRun;
 import com.zenmode.test_ru_bank.soap.ws.Person;
 import com.zenmode.test_ru_bank.soap.ws.Request;
 import com.zenmode.test_ru_bank.util.Status;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.math.BigInteger;
 
 import static com.zenmode.test_ru_bank.TestConstants.TEST_LONG_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
-@ComponentScan("com.zenmode.test_ru_bank.service")
-class ValidationServiceImplTest {
+class ValidationServiceImplTest extends TestRun {
 
     @Autowired
     private ValidationService validationService;

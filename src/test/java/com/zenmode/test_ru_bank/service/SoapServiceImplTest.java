@@ -1,21 +1,18 @@
 package com.zenmode.test_ru_bank.service;
 
 import com.zenmode.test_ru_bank.TestConstants;
+import com.zenmode.test_ru_bank.TestRun;
 import com.zenmode.test_ru_bank.dto.DataRequest;
 import com.zenmode.test_ru_bank.dto.DataResponse;
 import com.zenmode.test_ru_bank.util.Constants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ComponentScan(basePackages = {"com.zenmode.test_ru_bank.service", "com.zenmode.test_ru_bank.config"})
-class SoapServiceImplTest {
+class SoapServiceImplTest extends TestRun {
 
     @Autowired
     private SoapService soapService;
