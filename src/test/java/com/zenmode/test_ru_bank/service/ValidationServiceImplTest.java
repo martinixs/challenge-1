@@ -4,7 +4,6 @@ import com.zenmode.test_ru_bank.TestConstants;
 import com.zenmode.test_ru_bank.soap.ws.Person;
 import com.zenmode.test_ru_bank.soap.ws.Request;
 import com.zenmode.test_ru_bank.util.Status;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ComponentScan("com.zenmode.test_ru_bank.service")
-@Slf4j
 class ValidationServiceImplTest {
 
     @Autowired
@@ -27,7 +25,6 @@ class ValidationServiceImplTest {
     public void validationSuccessTest() {
         Person person = getPerson();
         String status = validationService.validate(getRequest(person));
-        log.error(status);
         assertEquals(Status.SUCCESS, status);
     }
 

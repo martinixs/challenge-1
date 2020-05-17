@@ -46,7 +46,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element name="patr_name" type="xs:string"/>
+            <xs:element name="patr_name" type="xs:string" nillable="true"/>
             <xs:element name="doc_number">
                 <xs:simpleType>
                     <xs:restriction base="xs:integer">

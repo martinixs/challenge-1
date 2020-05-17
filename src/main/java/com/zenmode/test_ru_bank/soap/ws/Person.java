@@ -8,8 +8,6 @@
 
 package com.zenmode.test_ru_bank.soap.ws;
 
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -91,7 +89,7 @@ public class Person {
     protected String firstName;
     @XmlElement(name = "last_name", required = true)
     protected String lastName;
-    @XmlElement(name = "patr_name", required = true)
+    @XmlElement(name = "patr_name", required = true, nillable = true)
     protected String patrName;
     @XmlElement(name = "doc_number", required = true)
     protected BigInteger docNumber;

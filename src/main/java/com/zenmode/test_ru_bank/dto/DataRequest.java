@@ -3,6 +3,7 @@ package com.zenmode.test_ru_bank.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -12,6 +13,7 @@ import java.math.BigInteger;
 @JsonTypeName("personaldata")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
 @Getter
+@Builder
 public class DataRequest {
 
     @JsonProperty("client_name")

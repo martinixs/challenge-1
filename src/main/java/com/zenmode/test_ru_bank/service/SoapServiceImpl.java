@@ -29,11 +29,6 @@ public class SoapServiceImpl implements SoapService {
     }
 
 
-    public Reply getPerson(Request request) {
-        log.debug("Invoke SOAP service");
-        return (Reply) webServiceTemplate.marshalSendAndReceive("http://localhost:8080/ws", request);
-    }
-
     @Override
     public DataResponse invoke(DataRequest dataRequest) {
 
@@ -59,6 +54,11 @@ public class SoapServiceImpl implements SoapService {
 
         log.debug("Response" + response);
         return response;
+    }
+
+    private Reply getPerson(Request request) {
+        log.debug("Invoke SOAP service");
+        return (Reply) webServiceTemplate.marshalSendAndReceive("http://localhost:8080/ws", request);
     }
 
 

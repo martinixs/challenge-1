@@ -5,6 +5,7 @@ import com.zenmode.test_ru_bank.service.ValidationService;
 import com.zenmode.test_ru_bank.soap.ws.OutDocument;
 import com.zenmode.test_ru_bank.soap.ws.Reply;
 import com.zenmode.test_ru_bank.soap.ws.Request;
+import com.zenmode.test_ru_bank.util.Constants;
 import com.zenmode.test_ru_bank.util.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class PersonEndpoint {
 
 
         log.info(request.toString());
-        String httpMessage = "Error";
+        String httpMessage = Constants.ERROR_RESULT;
 
         String status = validationService.validate(request);
 
