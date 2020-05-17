@@ -4,16 +4,25 @@ $(document).ready(function() {
       // Math.random should be unique because of its seeding algorithm.
       // Convert it to base 36 (numbers + letters), and grab the first 9 characters
       // after the decimal.
-      return '_' + Math.random().toString(36).substr(2, 9);
+      return '_' + Math.random().toString(36).substr(2, 18);
     };
 
+    var requestId = ID();
+
+    // Start file download.
+    document.getElementById("dwn_btn").addEventListener("click", function(){
+        // Generate download of hello.txt file with some content
+        var text = document.getElementById("response").value;
+        var filename = "response.xml";
+
+        download(filename, text);
+    }, false);
+
     $('#soap').click(function(e) {
-        console.log('404');
-
-    		// stop the form to be submitted...
     	e.preventDefault();
-
-        var requestId = ID();
+    	 $('#warn_msg_txt').text("");
+    	 $('#dwn_btn').hide();
+    	 $('#response').text();
 
         var person  = {
             first_name: $('#first_name').val(),
@@ -23,9 +32,6 @@ $(document).ready(function() {
             doc_series: $('#doc_series').val(),
             doc_issue_date: $('#doc_issue_date').val()
         };
-
-        console.log(person)
-
 
         var ajaxReturn  = $.soap({
             namespaceQualifier: 'urn',
@@ -39,13 +45,31 @@ $(document).ready(function() {
             },
 
             success: function (SOAPResponse) {
-                console.log(SOAPResponse.toXML());
-                $('#response').text(dom2html(SOAPResponse.toXML()));
+
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(SOAPResponse.toString(),"text/xml");
+                var rCorrectionId = xmlDoc.getElementsByTagName("ns2:correctionId")[0].childNodes[0].nodeValue;
+                var document = xmlDoc.getElementsByTagName("ns2:document")[0].childNodes[0].nodeValue;
+                var status = xmlDoc.getElementsByTagName("ns2:status")[0].childNodes[0].nodeValue;
+                console.log(requestId);
+                console.log(rCorrectionId);
+                console.log(status);
+
+                if(status != 2) {
+                    $('#warn_msg_txt').text("Повторите попытку позжe");
+                } else {
+                    if(requestId != rCorrectionId) {
+                        $('#warn_msg_txt').text("Повторите попытку позжe");
+                    } else {
+                        $('#response').text($.base64.decode(document));
+                        $('#dwn_btn').show();
+                    }
+                }
             },
             error: function (SOAPResponse) {
                 $('#warning_message').text('Что-то пошло не так.. Проверте форму и поаторите запрос');
                 $('#response').test('error');
-                $('#dwn-btn').hide();
+                $('#dwn_btn').hide();
             },
             statusCode: {
             				404: function() {
@@ -59,49 +83,16 @@ $(document).ready(function() {
     });
 });
 
-function dom2html(xmldom, tabcount) {
-	var whitespace = /^\s+$/;
-	var tabs = '  ';
-	var xmlout = [];
-	tabcount = (tabcount) ? tabcount : 0;
+function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
 
-	xmlout.push('\n', repeat(tabs, tabcount), '<', xmldom.nodeName);
-	for (var i in xmldom.attributes) {
-		var attribute = xmldom.attributes[i];
-		if (attribute.nodeType === 2) {
-			xmlout.push(' ', attribute.name, '="', attribute.value, '"');
-		}
-	}
-	xmlout.push('>');
-	++tabcount;
-	// for (var j in xmldom.childNodes) {
-	for (var j = 0; j < xmldom.childNodes.length; j++) {
-		var child = xmldom.childNodes[j];
-		if (child.nodeType === 1) {
-			xmlout.push(dom2html(child, tabcount));
-		}
-		if (child.nodeType === 3 && !whitespace.test(child.nodeValue)) {
-			xmlout.push(child.nodeValue.trim());
-		}
-		if (child.nodeType === 4) {
-			xmlout.push('<![CDATA[' + child.nodeValue + ']]>');
-		}
-	}
- 	if (xmldom.childNodes.length === 1 && (xmldom.childNodes[0].nodeType === 3 || xmldom.childNodes[0].nodeType === 4)) {
-		xmlout.push('</', xmldom.nodeName, '>');
-	} else {
-		xmlout.push('\n', repeat(tabs, --tabcount),'</', xmldom.nodeName, '>');
-	}
-	return xmlout.join('');
-}
-function repeat(x, n) {
-	var s = '';
-	for (;;) {
-		if (n & 1) s += x;
-		n >>= 1;
-		if (n) x += x;
-		else break;
-	}
-	return s;
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
 }
 

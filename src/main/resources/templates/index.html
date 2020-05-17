@@ -9,15 +9,18 @@
     <link rel='stylesheet' type='text/css' href='main.css'/>
     <!-- jquery from cdn at (mt) Media Temple -->
     <script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.js'></script>
-    <script type='text/javascript' src='jquery.xml2json.js'></script>
+<!--    <script type='text/javascript' src='jquery.xml2json.js'></script>-->
     <script type='text/javascript' src='jquery.soap.js'></script>
+    <script type="text/javascript" src="jquery.base64.min.js"></script>
     <script type="text/javascript" src='app.js'></script>
 </head>
 
 <body>
 <div id="container">
     <h2>Test task</h2>
-    <div id="warning_message">Warning message</div>
+    <div id="warning_message">
+        <h4>Warning message: </h4>
+        <p id="warn_msg_txt"></p></div>
     <div id="form_frame">
         <div id="form_request">
             <form>
@@ -48,14 +51,12 @@
                 <hr>
 
                 <button id="soap">Soap</button>
-                <button id="rest">Rest</button>
-
             </form>
         </div>
         <div id="form_response">
             <div>Response</div>
-            <textarea id="response" rows="4"></textarea><br/>
-            <input type="button" id="dwn-btn" value="Download" style="display: none"/>
+            <textarea id="response" rows="15"></textarea><br/>
+            <input type="button" id="dwn_btn" value="Download" style="display: none;"/>
         </div>
     </div>
 </div>
