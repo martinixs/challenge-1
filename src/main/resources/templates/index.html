@@ -2,53 +2,62 @@
 <html>
 <head>
     <title>Test example</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
     <link rel='stylesheet' type='text/css' href='main.css'/>
     <!-- jquery from cdn at (mt) Media Temple -->
     <script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.js'></script>
     <script type='text/javascript' src='jquery.xml2json.js'></script>
     <script type='text/javascript' src='jquery.soap.js'></script>
-    <!-- script type='text/javascript' src='https://github.com/doedje/jquery.soap/raw/1.3.8/jquery.soap.js'></script-->
-    <!-- doedje | sparkbuzz | fyneworks -->
-
     <script type="text/javascript" src='app.js'></script>
 </head>
 
 <body>
 <div id="container">
     <h2>Test task</h2>
+    <div id="warning_message">Warning message</div>
+    <div id="form_frame">
+        <div id="form_request">
+            <form>
 
-    <form>
-
-        <label for="first_name">Имя</label>
-        <input class="field" id="first_name" type="text">
-
-
-        <label for="last_name">Фамилия</label>
-        <input id="last_name" type="text">
+                <label for="first_name">Имя</label>
+                <input class="field" id="first_name" type="text">
 
 
-        <label for="patr_name">Отчество</label>
-        <input class="field" id="patr_name" type="text">
+                <label for="last_name">Фамилия</label>
+                <input id="last_name" type="text">
 
 
-        <label for="doc_number">Номер паспорта</label>
-        <input class="field" id="doc_number" type="text">
+                <label for="patr_name">Отчество</label>
+                <input class="field" id="patr_name" type="text">
 
 
-        <label for="doc_series">Серия паспорта</label>
-        <input class="field" id="doc_series" type="text">
+                <label for="doc_number">Номер паспорта</label>
+                <input class="field" id="doc_number" type="text">
 
 
-        <label for="doc_issue_date">Дата выдачи паспота</label>
-        <input class="field" id="doc_issue_date" type="text">
+                <label for="doc_series">Серия паспорта</label>
+                <input class="field" id="doc_series" type="text">
 
-        <hr>
 
-        <button id="soap">Soap</button>
-        <button id="rest">Rest</button>
+                <label for="doc_issue_date">Дата выдачи паспота</label>
+                <input class="field" id="doc_issue_date" type="text">
 
-    </form>
+                <hr>
+
+                <button id="soap">Soap</button>
+                <button id="rest">Rest</button>
+
+            </form>
+        </div>
+        <div id="form_response">
+            <div>Response</div>
+            <textarea id="response" rows="4"></textarea><br/>
+            <input type="button" id="dwn-btn" value="Download" style="display: none"/>
+        </div>
+    </div>
 </div>
 </body>
 </html>

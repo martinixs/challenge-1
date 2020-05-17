@@ -38,21 +38,14 @@ $(document).ready(function() {
                 payload : person
             },
 
-
-
-//            beforeSend: function(SOAPEnvelope) {
-//            				var xmlout = dom2html($.parseXML(SOAPEnvelope.toString()).firstChild);
-//            				$('#requestXML').text(xmlout);
-//            },
-
             success: function (SOAPResponse) {
-                // do stuff with soapResponse
-                // if you want to have the response as JSON use soapResponse.toJSON();
-                // or soapResponse.toString() to get XML string
-                // or soapResponse.toXML() to get XML DOM
+                console.log(SOAPResponse.toXML());
+                $('#response').text(dom2html(SOAPResponse.toXML()));
             },
             error: function (SOAPResponse) {
-                // show error
+                $('#warning_message').text('Что-то пошло не так.. Проверте форму и поаторите запрос');
+                $('#response').test('error');
+                $('#dwn-btn').hide();
             },
             statusCode: {
             				404: function() {
@@ -65,4 +58,50 @@ $(document).ready(function() {
         });
     });
 });
+
+function dom2html(xmldom, tabcount) {
+	var whitespace = /^\s+$/;
+	var tabs = '  ';
+	var xmlout = [];
+	tabcount = (tabcount) ? tabcount : 0;
+
+	xmlout.push('\n', repeat(tabs, tabcount), '<', xmldom.nodeName);
+	for (var i in xmldom.attributes) {
+		var attribute = xmldom.attributes[i];
+		if (attribute.nodeType === 2) {
+			xmlout.push(' ', attribute.name, '="', attribute.value, '"');
+		}
+	}
+	xmlout.push('>');
+	++tabcount;
+	// for (var j in xmldom.childNodes) {
+	for (var j = 0; j < xmldom.childNodes.length; j++) {
+		var child = xmldom.childNodes[j];
+		if (child.nodeType === 1) {
+			xmlout.push(dom2html(child, tabcount));
+		}
+		if (child.nodeType === 3 && !whitespace.test(child.nodeValue)) {
+			xmlout.push(child.nodeValue.trim());
+		}
+		if (child.nodeType === 4) {
+			xmlout.push('<![CDATA[' + child.nodeValue + ']]>');
+		}
+	}
+ 	if (xmldom.childNodes.length === 1 && (xmldom.childNodes[0].nodeType === 3 || xmldom.childNodes[0].nodeType === 4)) {
+		xmlout.push('</', xmldom.nodeName, '>');
+	} else {
+		xmlout.push('\n', repeat(tabs, --tabcount),'</', xmldom.nodeName, '>');
+	}
+	return xmlout.join('');
+}
+function repeat(x, n) {
+	var s = '';
+	for (;;) {
+		if (n & 1) s += x;
+		n >>= 1;
+		if (n) x += x;
+		else break;
+	}
+	return s;
+}
 

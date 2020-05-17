@@ -23,34 +23,45 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zenmode.test_ru_bank.util.Constants.DATE_FORMAT;
 import static com.zenmode.test_ru_bank.util.Constants.SCHEMA_NAME;
 
 @Service
 @Slf4j
 public class ValidationServiceImpl implements ValidationService {
 
-    private static final String DATE_FORMAT = "dd.MM.yyyy";
-    private List<String> validationErrors = new ArrayList<>(0);
-
     @Override
     public String validate(Request dataRequest) {
 
         log.debug("Start validate");
-        jabxValidate(dataRequest);
-        manualValidation(dataRequest.getPerson());
-        log.debug("Validation is passed");
+        String validationStatus = jabxValidate(dataRequest).isEmpty()
+                && manualValidation(dataRequest.getPerson()).isEmpty()
+                ? Status.SUCCESS : Status.ERROR;
+        log.debug("Validation status: {}", validationStatus);
 
-        return validationErrors.isEmpty() ? Status.SUCCESS : Status.ERROR;
+        return validationStatus;
     }
 
-    private void manualValidation(Person person) {
+    private List<String> manualValidation(Person person) {
+        List<String> validationErrors = new ArrayList<>(0);
         log.debug("Start manual validation");
-        validateDateOfIssue(person.getDocIssueDate());
-        validatePatronic(person.getPatrName());
-        log.debug("Manual validation is passed");
+
+        String validateDate = validateDateOfIssue(person.getDocIssueDate());
+        if (validateDate != null) {
+            validationErrors.add(validateDate);
+        }
+        String validatePart = validatePatronic(person.getPatrName());
+
+        if (validatePart != null) {
+            validationErrors.add(validateDate);
+        }
+        log.debug("End Manual validation");
+
+        return validationErrors;
     }
 
-    private void jabxValidate(Request dataRequest) {
+    private List<String> jabxValidate(Request dataRequest) {
+        List<String> validationErrors = new ArrayList<>(0);
         try {
             log.debug("Start schema validation");
             Schema s = SchemaFactory
@@ -63,31 +74,36 @@ public class ValidationServiceImpl implements ValidationService {
             log.error("Schema validation is failed");
             validationErrors.add("Schema validation is failed");
         }
+
+        return validationErrors;
     }
 
-    private void validateDateOfIssue(String date) {
+    private String validateDateOfIssue(String date) {
+
         if (StringUtils.isNotEmpty(date)) {
             DateTimeFormatter f = DateTimeFormatter.ofPattern(DATE_FORMAT);
             try {
                 LocalDate ld = LocalDate.parse(date, f);
                 if (ld.isEqual(LocalDate.now())) {
                     log.debug("Date of issue more or equal than current date");
-                    validationErrors.add("Date of issue more or equal than current date");
+                    return "Date of issue more or equal than current date";
                 }
             } catch (DateTimeParseException e) {
                 log.error("Can't parse date: {}", date);
-                validationErrors.add("Date of issue has wrong format");
+                return "Date of issue has wrong format";
             }
         }
+        return null;
     }
 
-    private void validatePatronic(String patronic) {
-        if (patronic != null) {
+    private String validatePatronic(String patronic) {
+        if (StringUtils.isNotEmpty(patronic)) {
             int length = patronic.length();
             if (length < 2 || length > 30) {
                 log.error("Patronic name has wrong length");
-                validationErrors.add("Patronic's name has wrong length");
+                return "Patronic's name has wrong length";
             }
         }
+        return null;
     }
 }
