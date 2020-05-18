@@ -23,8 +23,13 @@ public class PersonDataController {
 
     @PostMapping(path = "/nkbirequest")
     public ResponseEntity<DataResponse> nkbiRequest(@RequestBody DataRequest personData) {
-        log.info("Request: {}", personData);
-        DataResponse p = soapService.invoke(personData);
-        return new ResponseEntity<>(p, HttpStatus.OK);
+        try {
+            log.info("Request: " + personData);
+            DataResponse p = soapService.invoke(personData);
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Exception: ()", e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

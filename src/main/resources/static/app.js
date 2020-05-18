@@ -20,6 +20,7 @@ $(document).ready(function() {
 
     $('#soap').click(function(e) {
     	e.preventDefault();
+    	 $('#warning_message').hide();
     	 $('#warn_msg_txt').text("");
     	 $('#dwn_btn').hide();
     	 $('#response').text();
@@ -56,9 +57,11 @@ $(document).ready(function() {
                 console.log(status);
 
                 if(status != 2) {
+                    $('#warning_message').show();
                     $('#warn_msg_txt').text("Повторите попытку позжe");
                 } else {
                     if(requestId != rCorrectionId) {
+                         $('#warning_message').show();
                         $('#warn_msg_txt').text("Повторите попытку позжe");
                     } else {
                         $('#response').text($.base64.decode(document));

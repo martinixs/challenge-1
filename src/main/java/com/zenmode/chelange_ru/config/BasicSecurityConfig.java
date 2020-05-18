@@ -20,7 +20,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/app").permitAll()
-                .antMatchers("/app/nkbirequest").authenticated().and().httpBasic();
+                .antMatchers("/app/**").authenticated().and().httpBasic();
     }
 
     @Autowired
