@@ -1,10 +1,10 @@
 {
-"personaldata": {
-    "client_name": "Александр",
-    "client_surname": "Громыко",
-    "client_patronymic": "Александрович",
-    "passport_series": 4109,
-    "passport_number": 123456,
-    "passport_date_of_issue": "10.10.2010"
+  "personaldata": {
+      "client_name": "Александр",
+      "client_surname": "Громыко",
+      "client_patronymic": "Александрович",
+      "passport_series": 4109,
+      "passport_number": 123456,
+      "passport_date_of_issue": "10.10.2010"
   }
 }

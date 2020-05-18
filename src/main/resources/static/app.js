@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var ID = function () {
+    function ID() {
       // Math.random should be unique because of its seeding algorithm.
       // Convert it to base 36 (numbers + letters), and grab the first 9 characters
       // after the decimal.
@@ -23,9 +23,9 @@ $(document).ready(function() {
     	 $('#warning_message').hide();
     	 $('#warn_msg_txt').text("");
     	 $('#dwn_btn').hide();
-    	 $('#response').text();
+    	 $('#response').text("");
 
-        var person  = {
+        var person = {
             first_name: $('#first_name').val(),
             last_name: $('#last_name').val(),
             patr_name: $('#patr_name').val(),
@@ -34,7 +34,7 @@ $(document).ready(function() {
             doc_issue_date: $('#doc_issue_date').val()
         };
 
-        var ajaxReturn  = $.soap({
+        var ajaxReturn = $.soap({
             namespaceQualifier: 'urn',
             url: 'http://localhost:8080/ws/',
             method: 'request',
@@ -46,7 +46,6 @@ $(document).ready(function() {
             },
 
             success: function (SOAPResponse) {
-
                 var parser = new DOMParser();
                 var xmlDoc = parser.parseFromString(SOAPResponse.toString(),"text/xml");
                 var rCorrectionId = xmlDoc.getElementsByTagName("ns2:correctionId")[0].childNodes[0].nodeValue;
