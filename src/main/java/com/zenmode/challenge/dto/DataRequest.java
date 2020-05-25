@@ -1,5 +1,6 @@
 package com.zenmode.challenge.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -14,6 +15,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 
 @JsonTypeName("personaldata")
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -42,5 +44,6 @@ public class DataRequest implements Serializable {
     private BigInteger passportNumber;
 
     @JsonProperty
-    private String passportDateOfIssue;
+    @JsonFormat(pattern = "dd.MM.yy")
+    private Date passportDateOfIssue;
 }

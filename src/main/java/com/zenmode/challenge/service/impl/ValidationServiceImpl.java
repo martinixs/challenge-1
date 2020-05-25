@@ -1,5 +1,6 @@
-package com.zenmode.challenge.service;
+package com.zenmode.challenge.service.impl;
 
+import com.zenmode.challenge.service.ValidationService;
 import com.zenmode.challenge.soap.ws.Person;
 import com.zenmode.challenge.soap.ws.Request;
 import com.zenmode.challenge.util.Status;

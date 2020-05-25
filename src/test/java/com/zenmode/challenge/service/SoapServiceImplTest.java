@@ -5,6 +5,7 @@ import com.zenmode.challenge.TestRun;
 import com.zenmode.challenge.dto.DataRequest;
 import com.zenmode.challenge.dto.DataResponse;
 import com.zenmode.challenge.util.Constants;
+import com.zenmode.challenge.util.DateUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ class SoapServiceImplTest extends TestRun {
     void invokeSuccessWithoutPartNameTest() {
         DataRequest dataRequest = DataRequest.builder()
                 .clientName(TestConstants.PERSON_NAME)
-                .passportDateOfIssue(TestConstants.DOC_DATE_OF_ISSUE)
+                .passportDateOfIssue(DateUtil.fromString(TestConstants.DOC_DATE_OF_ISSUE))
                 .passportNumber(TestConstants.DOC_NUMBER)
                 .passportSeries(TestConstants.DOC_SERIES)
                 .clientSurname(TestConstants.PERSON_SURNAME)
@@ -48,7 +49,7 @@ class SoapServiceImplTest extends TestRun {
         DataRequest dataRequest = DataRequest.builder()
                 .clientName(TestConstants.PERSON_NAME)
                 .clientSurname(TestConstants.PERSON_MIDDLE_NAME)
-                .passportDateOfIssue(TestConstants.DOC_DATE_OF_ISSUE)
+                .passportDateOfIssue(DateUtil.fromString(TestConstants.DOC_DATE_OF_ISSUE))
                 .passportNumber(TestConstants.DOC_NUMBER)
                 .passportSeries(TestConstants.DOC_SERIES)
                 .clientPatronymic(TestConstants.PERSON_MIDDLE_NAME)

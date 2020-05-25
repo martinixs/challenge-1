@@ -5,6 +5,7 @@ import com.zenmode.challenge.TestRun;
 import com.zenmode.challenge.dto.DataRequest;
 import com.zenmode.challenge.dto.DataResponse;
 import com.zenmode.challenge.util.Constants;
+import com.zenmode.challenge.util.DateUtil;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ class PersonDataControllerTest extends TestRun {
                 .clientName(TestConstants.PERSON_NAME)
                 .clientPatronymic(TestConstants.PERSON_MIDDLE_NAME)
                 .clientSurname(TestConstants.PERSON_SURNAME)
-                .passportDateOfIssue(TestConstants.DOC_DATE_OF_ISSUE)
+                .passportDateOfIssue(DateUtil.fromString(TestConstants.DOC_DATE_OF_ISSUE))
                 .passportNumber(TestConstants.DOC_NUMBER)
                 .passportSeries(TestConstants.DOC_SERIES)
                 .build();

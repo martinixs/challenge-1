@@ -1,10 +1,12 @@
-package com.zenmode.challenge.service;
+package com.zenmode.challenge.service.impl;
 
 import com.zenmode.challenge.dto.DataRequest;
 import com.zenmode.challenge.dto.DataResponse;
+import com.zenmode.challenge.service.SoapService;
 import com.zenmode.challenge.soap.ws.Person;
 import com.zenmode.challenge.soap.ws.Reply;
 import com.zenmode.challenge.soap.ws.Request;
+import com.zenmode.challenge.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,7 @@ public class SoapServiceImpl implements SoapService {
     private Person personFromJson(DataRequest dataRequest) {
         Person person = new Person();
 
-        person.setDocIssueDate(dataRequest.getPassportDateOfIssue());
+        person.setDocIssueDate(DateUtil.toString(dataRequest.getPassportDateOfIssue()));
         person.setDocNumber(dataRequest.getPassportNumber());
         person.setDocSeries(dataRequest.getPassportSeries());
         person.setFirstName(dataRequest.getClientName());
