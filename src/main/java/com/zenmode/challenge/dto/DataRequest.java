@@ -44,6 +44,6 @@ public class DataRequest implements Serializable {
     private BigInteger passportNumber;
 
     @JsonProperty
-    @JsonFormat(pattern = "dd.MM.yy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private Date passportDateOfIssue;
 }
